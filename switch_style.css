@@ -1,0 +1,10 @@
+/* VWO switch stylesheet */
+.betabadge{
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/beta-2.png") no-repeat; 
+z-index:2147483638; 
+position:absolute; 
+width:75px; 
+height:75px; 
+top:0; 
+right:0;
+}
