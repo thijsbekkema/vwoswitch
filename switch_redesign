@@ -132,7 +132,7 @@ text-align:center;\
 background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/traffic_bg.png") no-repeat #ffffff;\
 float:right;\
 line-height:27px;\
-color:#333333;\
+color:#4D4D4D;\
 }\
 #traffic_percentage.hover{\
 background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/traffic_bg.png") no-repeat #f2f4ff;\
@@ -225,7 +225,7 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 							if(variantTraffic == '1'){
 								variantTraffic = '100';
 							}else if(variantTraffic.toString().indexOf('0.') > -1){
-								variantTraffic = variantTraffic.toString().replace('0.', '').substr(0,2);
+								variantTraffic = (Math.floor(variantTraffic * 100) / 100).toFixed(2).replace('0.', '');
 							}
 							$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 							$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
@@ -271,7 +271,7 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 						if(variantTraffic == '1'){
 							variantTraffic = '100';
 						}else if(variantTraffic.toString().indexOf('0.') > -1){
-							variantTraffic = variantTraffic.toString().replace('0.', '').substr(0,2);
+							variantTraffic = (Math.floor(variantTraffic * 100) / 100).toFixed(2).replace('0.', '');
 						}
 						$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'" style="vertical-align:middle; margin-right:5px;"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="cursor:pointer; display:inline;">'+variantNaam.replace('---',' - ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 						$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
@@ -323,7 +323,7 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 										if(variantTraffic == '1'){
 											variantTraffic = '100';
 										}else if(variantTraffic.toString().indexOf('0.') > -1){
-											variantTraffic = variantTraffic.toString().replace('0.', '').substr(0,2);
+											variantTraffic = (Math.floor(variantTraffic * 100) / 100).toFixed(2).replace('0.', '');
 										}
 										$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[selectedTestIndex]+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 										$('#'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
