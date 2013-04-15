@@ -2,7 +2,7 @@
 // Check of jQuery wel wordt geladen
 if(typeof jQuery == 'undefined'){
     // jQuery kan niet geladen worden
-  alert('Let op: jQuery kan niet geladen worden.\nControleer de implementatie van jQuery.');
+	alert('Let op: jQuery kan niet geladen worden.\nControleer de implementatie van jQuery.');
 }else{
     // jQuery wordt wel geladen 
 	// Check of VWO wordt geladen
@@ -112,10 +112,30 @@ padding:5px;\
 height:20px;\
 border-bottom:1px solid #EAEAEA;\
 cursor:pointer;\
+width:302px;\
+float:left;\
+}\
+#variant_div label{\
+cursor:pointer;\
 }\
 form#vwo_switch_form{\
 margin:0px;\
 padding:0px;\
+}\
+#traffic_percentage{\
+width:48px;\
+height:29px;\
+border-top:1px solid #FFFFFF;\
+border-bottom:1px solid #EAEAEA;\
+font-weight:bold;\
+text-align:center;\
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/traffic_bg.png") no-repeat #ffffff;\
+float:right;\
+line-height:27px;\
+color:#333333;\
+}\
+#traffic_percentage.hover{\
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/traffic_bg.png") no-repeat #f2f4ff;\
 }\
 </style>').appendTo('head');
 /*Einde stylesheet*/
@@ -194,16 +214,25 @@ padding:0px;\
 							'</div>'+
 							'<div id="testVariants">'+
 								'<form id="vwo_switch_form">'+
-									'<div id="submit_var_change">Toon Variant</div><small>(verwijder exclude cookie)</small>'+
+									'<div id="submit_var_change_wrap" style="float:left; width:100%;"><div id="submit_var_change">Toon Variant</div><small>(verwijder exclude cookie)</small></div>'+
 								'</form>'+
 							'</div>'+
 						'</div>').insertAfter('#t4u_switch_head');
 
 						for (a in _vwo_exp[_vwo_exp_ids[testN]].comb_n) {
 							variantNaam =  _vwo_exp[_vwo_exp_ids[testN]].comb_n[a];
-							$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div>').insertBefore('#submit_var_change');
+							variantTraffic =  _vwo_exp[_vwo_exp_ids[testN]].combs[a];
+							if(variantTraffic == '1'){
+								variantTraffic = '100';
+							}else if(variantTraffic.toString().indexOf('0.') > -1){
+								variantTraffic = variantTraffic.toString().replace('0.', '').substr(0,2);
+							}
+							$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 							$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
 						};
+						
+						h = ($('#submit_var_change_wrap').height()+(30*a));
+						$('#testVariants').css('height', h+'px')
 							
 						$('#submit_var_change').click(function(){
 							var cookieVal = $('#vwo_switch_form input:checked').val();
@@ -231,17 +260,26 @@ padding:0px;\
 						'</div>'+
 						'<div id="testVariants">'+
 							'<form id="vwo_switch_form">'+
-								'<div id="submit_var_change">Toon pagina</div>'+
+								'<div id="submit_var_change_wrap" style="float:left; width:100%;"><div id="submit_var_change">Toon pagina</div></div>'+
 							'</form>'+
 						'</div>'+
 					'</div>').appendTo('#t4u_vwo_switch_overlay');
 
 					for (a in _vwo_exp[_vwo_exp_ids[testN]].comb_n) {
 						variantNaam =  _vwo_exp[_vwo_exp_ids[testN]].comb_n[a];
-						$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'" style="vertical-align:middle; margin-right:5px;"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="cursor:pointer; display:inline;">'+variantNaam.replace('---',' - ')+'</label></div>').insertBefore('#submit_var_change');
+						variantTraffic =  _vwo_exp[_vwo_exp_ids[testN]].combs[a];
+						if(variantTraffic == '1'){
+							variantTraffic = '100';
+						}else if(variantTraffic.toString().indexOf('0.') > -1){
+							variantTraffic = variantTraffic.toString().replace('0.', '').substr(0,2);
+						}
+						$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'" style="vertical-align:middle; margin-right:5px;"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="cursor:pointer; display:inline;">'+variantNaam.replace('---',' - ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 						$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
 					};
-
+					
+					h = ($('#submit_var_change_wrap').height()+(30*a));
+					$('#testVariants').css('height', h+'px')
+					
 					// Meerdere live testen switchen
 					if(testN > 0){
 						$('.multipleTests').show().appendTo('.testTitle');
@@ -259,26 +297,40 @@ padding:0px;\
 							function changeLiveVariant(){
 								var liveForm = '.'+$('#t4u_formDiv').attr('class');
 								var activeVariant = unescape(readCookie("_vis_opt_exp_" + selectedTest + "_combi"));
+								if (_vwo_exp[selectedTest].type == "VISUAL_AB"){
+									var testType = "A/B Test";
+								}else if(_vwo_exp[selectedTest].type == "VISUAL"){
+									var testType = "Multivariate test";
+								}
 								
 								$(liveForm).fadeOut(250, function(){
 									$('<div id="t4u_formDiv" class="form_ID'+selectedTest+'">'+
 										'<div id="testDetails">'+
 											'Test type: <strong>'+testType+'</strong><br />'+
-											'Test page patern: <strong>'+_vwo_exp[testID].url_pattern+'</strong><br />'+
-											'Percentage traffic: <strong>'+_vwo_exp[testID].pc_traffic+'%</strong>'+
+											'Test page patern: <strong>'+_vwo_exp[selectedTest].url_pattern+'</strong><br />'+
+											'Percentage traffic: <strong>'+_vwo_exp[selectedTest].pc_traffic+'%</strong>'+
 										'</div>'+
 										'<div id="testVariants">'+
 											'<form id="vwo_switch_form">'+
-												'<div id="submit_var_change" style="width:250px; padding:5px 10px; height:20px; border-radius:2px; background: #00be36; background: -moz-linear-gradient(top,  #00be36 0%, #029a2d 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00be36), color-stop(100%,#029a2d)); background: -webkit-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -o-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -ms-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: linear-gradient(to bottom,  #00be36 0%,#029a2d 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#00be36\', endColorstr=\'#029a2d\',GradientType=0 );  vertical-align:middle; text-align:center; color:#fff; margin-top:15px; cursor:pointer;">Toon pagina</div>'+
+												'<div id="submit_var_change_wrap" style="float:left; width:100%;"><div id="submit_var_change">Toon pagina</div></div>'+
 											'</form>'+
 										'</div>'+
 									'</div>').hide().insertAfter('#t4u_switch_head').fadeIn(500);
 
 									for (a in _vwo_exp[_vwo_exp_ids[selectedTestIndex]].comb_n) {
 										variantNaam =  _vwo_exp[_vwo_exp_ids[selectedTestIndex]].comb_n[a];
-										$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[selectedTestIndex]+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div>').insertBefore('#submit_var_change');
+										variantTraffic =  _vwo_exp[_vwo_exp_ids[testN]].combs[a];
+										if(variantTraffic == '1'){
+											variantTraffic = '100';
+										}else if(variantTraffic.toString().indexOf('0.') > -1){
+											variantTraffic = variantTraffic.toString().replace('0.', '').substr(0,2);
+										}
+										$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[selectedTestIndex]+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 										$('#'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
 									};
+									
+									h = ($('#submit_var_change_wrap').height()+(30*a));
+									$('#testVariants').css('height', h+'px')
 
 									$('.multipleTests').show().appendTo('.testTitle');
 									$('.multipleTests').css({
@@ -288,14 +340,19 @@ padding:0px;\
 										'border':'1px solid #4C668C',						
 									});
 									
-									//todo: Hovers stylen, bij definitieve variant in functie stoppen
 									$('#vwo_switch_form div#variant_div').hover(function(){
-										$(this).css({'background':'#cccccc'});
+										$(this).css({'background':'#f2f4ff'});
+										$(this).next().addClass('hover');
 									}, function(){
 										$(this).css({'background':'#ffffff'});
+										$(this).next().removeClass('hover');
 									});
 									
-									$('#vwo_switch_form input:checked').parent().css('background','#f2f4ff');
+									$('#vwo_switch_form input[value="'+activeVariant+'"]').attr('checked', 'checked');
+									
+									$('#vwo_switch_form #variant_div').click(function(){
+										$('input', this).attr('checked', 'checked');
+									});
 									
 									$('#vwo_switch_form div#variant_div input').change(function(){
 										$('#vwo_switch_form div#variant_div').css('background', '#ffffff');
@@ -326,11 +383,17 @@ padding:0px;\
 					// Geen meerdere testen, normale switcher
 					$('#vwo_switch_form div#variant_div').hover(function(){
 						$(this).css({'background':'#f2f4ff'});
+						$(this).next().addClass('hover');
 					}, function(){
 						$(this).css({'background':'#ffffff'});
+						$(this).next().removeClass('hover');
 					});
 					
-					$('#vwo_switch_form input:checked').parent().css('background','#f2f4ff');
+					$('#vwo_switch_form input[value="'+activeVariant+'"]').attr('checked', 'checked');
+					
+					$('#vwo_switch_form #variant_div').click(function(){
+						$('input', this).attr('checked', 'checked');
+					});
 					
 					$('#vwo_switch_form div#variant_div input').change(function(){
 						$('#vwo_switch_form div#variant_div').css('background', '#ffffff');
@@ -355,7 +418,7 @@ padding:0px;\
 				$('#t4u_vwo_switch_overlay').css('min-height','210px');
 				$('<div id="t4u_formDiv"><div id="testVariants">'+
 					'<p style="padding:10px; text-align:center;">'+
-					'<strong style="font-size:16px;">Geen test actief</strong><br />'+location.href+'<br /><br />'+
+						'<strong style="font-size:16px;">Geen test actief</strong><br />'+location.href+'<br /><br />'+
 					'</p>'+
 				'</div></div>').insertAfter('#t4u_switch_head');
 			}
