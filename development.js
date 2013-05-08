@@ -66,6 +66,7 @@ width:370px;\
 padding:5px;\
 background:#EAEAEA;\
 border-radius:5px 0px 5px 5px;\
+display:inline-block !important;\
 }\
 #submit_var_change{\
 width:250px;\
@@ -115,6 +116,7 @@ border-bottom:1px solid #EAEAEA;\
 cursor:pointer;\
 width:302px;\
 float:left;\
+background:#fff;\
 }\
 #variant_div label{\
 cursor:pointer;\
@@ -172,13 +174,11 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 				t4u_$('<select class="multipleTests"></select>').appendTo('#t4u_switch_head_choose').hide();
 				t4u_$(_vwo_exp_ids).each(function(index){
 					t4u_$('<option value="'+_vwo_exp_ids[index]+'" label="'+index+'">Test # '+_vwo_exp_ids[index]+'</option>').appendTo('.multipleTests');
-					
 					for(a in _vwo_exp[_vwo_exp_ids[index]].comb_n) {
-							vNaam =  _vwo_exp[_vwo_exp_ids[index]].comb_n[a];
-						};
-						testN = index;
+						vNaam =  _vwo_exp[_vwo_exp_ids[index]].comb_n[a];
+					};
+					testN = index-1;
 				});
-				
 				var meestRecenteTest = Math.max.apply(null, _vwo_exp_ids);
 				var testID = meestRecenteTest;
 				t4u_$('.multipleTests option').each(function(){
@@ -196,7 +196,6 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 					'</div>').insertAfter('#t4u_switch_head');
 					
 					t4u_$('.delExclude').click(function(){
-						
 						t4u_$('.cookieCheck').remove();
 						
 						var activeVariant = unescape(readCookie("_vis_opt_exp_" + testID + "_combi"));
@@ -205,6 +204,10 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 							var testType = "A/B Test";
 						}else if(_vwo_exp[testID].type == "VISUAL"){
 							var testType = "Multivariate test";
+						}else if(_vwo_exp[testID].type == "SPLIT_URL"){
+							var testType = "Split URL test";
+						}else if(_vwo_exp[testID].type == "HEATMAP"){
+							var testType = "Heatmap test";
 						}
 						t4u_$('<strong style="font-size:16px;">Test # '+testID+'</strong>').appendTo('.t4u_switch_head_choose');
 						t4u_$('<div id="t4u_formDiv"><div id="testDetails">'+
@@ -241,12 +244,16 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 					
 				}else{
 					// Geen exclude cookie gevonden voor de meest recente test, gewoon doorgaan
-					var activeVariant = unescape(readCookie("_vis_opt_exp_" + testID + "_combi"));
-
+					var activeVariant = _vwo_exp[testID].combination_chosen;
+					
 					if (_vwo_exp[testID].type == "VISUAL_AB"){
 						var testType = "A/B Test";
 					}else if(_vwo_exp[testID].type == "VISUAL"){
 						var testType = "Multivariate test";
+					}else if(_vwo_exp[testID].type == "SPLIT_URL"){
+						var testType = "Split URL test";
+					}else if(_vwo_exp[testID].type == "HEATMAP"){
+						var testType = "Heatmap test";
 					}
 					t4u_$('<img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/vwo_ico.png" border="0" style="width:15px;">&nbsp;<strong style="font-size:16px;" class="testTitle"></strong><br />').appendTo('#t4u_switch_head_choose');
 					t4u_$('<div id="t4u_formDiv" class="form_ID'+testID+'"><div id="testDetails">'+
@@ -288,11 +295,15 @@ background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/
 						
 							function changeLiveVariant(){
 								var liveForm = '.'+t4u_$('#t4u_formDiv').attr('class');
-								var activeVariant = unescape(readCookie("_vis_opt_exp_" + selectedTest + "_combi"));
+								var activeVariant = _vwo_exp[testID].combination_chosen;
 								if (_vwo_exp[selectedTest].type == "VISUAL_AB"){
 									var testType = "A/B Test";
 								}else if(_vwo_exp[selectedTest].type == "VISUAL"){
 									var testType = "Multivariate test";
+								}else if(_vwo_exp[selectedTest].type == "SPLIT_URL"){
+									var testType = "Split URL test";
+								}else if(_vwo_exp[selectedTest].type == "HEATMAP"){
+									var testType = "Heatmap test";
 								}
 								
 								t4u_$(liveForm).fadeOut(250, function(){
