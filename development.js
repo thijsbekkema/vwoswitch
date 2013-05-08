@@ -1,19 +1,146 @@
-/* VWO switcher 2012 */
+/* VWO switcher 2013 */
 // Check of jQuery wel wordt geladen
 if(typeof jQuery == 'undefined'){
     // jQuery kan niet geladen worden
-  alert('Let op: jQuery kan niet geladen worden.\nControleer de implementatie van jQuery.');
+	alert('Let op: jQuery kan niet geladen worden.\nControleer de implementatie van jQuery.');
 }else{
+	t4u_$=jQuery||vwo_$||$;
     // jQuery wordt wel geladen 
 	// Check of VWO wordt geladen
 	if(typeof _vwo_code == 'undefined'){
 		// VWO kan niet geladen worden
-		var version = $().jquery;
+		var version = t4u_$().jquery;
 		alert('jQuery ('+version+') succesvol geladen.\n\nLet op: Visual Website Optimizer kan niet worden geladen.\nControleer de implementatie van Visual Website Optimizer.');
 	} else {
-		// VWO wordt wel geladen
-		$=jQuery||vwo_$||$;
-		$(function(){
+	// VWO wordt wel geladen
+	
+/*Stylesheet*/
+t4u_$('<style id="switch_style">\
+body{\
+}\
+#t4u_vwo_switch_overlayBG{\
+background:#000;\
+opacity:0.65;\
+filter:alpha(opacity=65);\
+z-index:2147483628;\
+position:absolute;\
+top:0;\
+}\
+#t4u_vwo_switch_overlay{\
+width:380px;\
+min-height:250px;\
+left:-205px;\
+padding:10px;\
+background:#fff;\
+border-radius:3px;\
+z-index:2147483629;\
+position:fixed;\
+margin:auto 50%;\
+top:30px;\
+opacity:1;\
+display:none;\
+color: #4C668C;\
+font: 12px/1.5 Arial,Helvetica,sans-serif;\
+}\
+#t4u_switch_head{\
+height:30px;\
+}\
+#t4u_switch_head_choose{\
+width:300px;\
+height:25px;\
+float:left;\
+}\
+#t4u_switch_close{\
+width:35px;\
+height:30px;\
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/close.png") 7px 5px no-repeat #EAEAEA;\
+border-radius:5px 5px 0px 0px;\
+float:right;\
+cursor:pointer;\
+}\
+#t4u_switch_close:hover{\
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/close.png") 7px -29px no-repeat #EAEAEA;\
+}\
+#t4u_formDiv{\
+width:370px;\
+padding:5px;\
+background:#EAEAEA;\
+border-radius:5px 0px 5px 5px;\
+}\
+#submit_var_change{\
+width:250px;\
+padding:5px 10px;\
+height:20px;\
+border-radius:2px;\
+background: #00be36;\
+background: -moz-linear-gradient(top,  #00be36 0%, #029a2d 100%);\
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00be36), color-stop(100%,#029a2d));\
+background: -webkit-linear-gradient(top,  #00be36 0%,#029a2d 100%);\
+background: -o-linear-gradient(top,  #00be36 0%,#029a2d 100%);\
+background: -ms-linear-gradient(top,  #00be36 0%,#029a2d 100%);\
+background: linear-gradient(to bottom,  #00be36 0%,#029a2d 100%);\
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#00be36\', endColorstr=\'#029a2d\',GradientType=0 );\
+vertical-align:middle;\
+text-align:center;\
+color:#fff;\
+cursor:pointer;\
+transition:width 0.15s linear 0s;\
+-webkit-transition:width 0.15s linear 0s;\
+margin:15px auto 10px;\
+}\
+#submit_var_change:hover{\
+width:270px;\
+}\
+#testDetails{\
+width:340px;\
+height:75px;\
+border-radius:5px;\
+background:#fff;\
+margin:5px auto auto;\
+line-height:24px;\
+padding:5px 10px;\
+}\
+#testVariants{\
+width:360px;\
+min-height:150px;\
+border-radius:5px;\
+background:#fff;\
+padding-bottom:10px;\
+margin:5px auto;\
+}\
+#variant_div{\
+padding:5px;\
+height:20px;\
+border-bottom:1px solid #EAEAEA;\
+cursor:pointer;\
+width:302px;\
+float:left;\
+}\
+#variant_div label{\
+cursor:pointer;\
+}\
+form#vwo_switch_form{\
+margin:0px;\
+padding:0px;\
+}\
+#traffic_percentage{\
+width:48px;\
+height:29px;\
+border-top:1px solid #FFFFFF;\
+border-bottom:1px solid #EAEAEA;\
+font-weight:bold;\
+text-align:center;\
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/traffic_bg.png") no-repeat #ffffff;\
+float:right;\
+line-height:27px;\
+color:#4D4D4D;\
+}\
+#traffic_percentage.hover{\
+background:url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/traffic_bg.png") no-repeat #f2f4ff;\
+}\
+</style>').appendTo('head');
+/*Einde stylesheet*/
+		t4u_$(function(){
 			function readCookie(name) {
 				var nameEQ = name + "=";
 				var ca = document.cookie.split(';');
@@ -25,32 +152,26 @@ if(typeof jQuery == 'undefined'){
 				return null;
 			};
 
-			var dWidth = $(document).width();
-			var dHeight = $(document).height();
+			/* Switch overlay toevoegen aan de pagina*/
+			var dWidth = t4u_$(document).width();
+			var dHeight = t4u_$(document).height();
+
+			var overlayBG = '<div id="t4u_vwo_switch_overlayBG" style="height:'+dHeight+'px; width:'+dWidth+'px;"></div>';
+			var overlay = '<div id="t4u_vwo_switch_overlay"></div>';
 			
-			var overlayBG = '<div id="t4u_vwo_switch_overlayBG" class="t4u_switch_close" style="height:'+dHeight+'px; width:'+dWidth+'px; background:#000; opacity:0.65; filter:alpha(opacity=65); z-index:2147483628; position:absolute; top:0;"></div>';
-			var overlay = '<div id="t4u_vwo_switch_overlay" style="width:400px; left:-150px; padding:0px; background:#fff; border-radius:5px; border:1px solid #333; z-index:2147483629; position:fixed; margin:auto 50%; top:30px; opacity:1; box-shadow:0px 0px 20px 3px #333;"></div>';
-			var vwoBar = '<div id="t4u_vwo_bar" style="width:100%; height:89px; border-bottom:1px solid #9cb7c7; border-radius:5px 5px 0 0; top:0; background:url(//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/t4u_header.jpg) no-repeat top left #ddf5fe;"></div>';
-			var betaBadge = '<div style="background:url(//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/beta-2.png) no-repeat; z-index:2147483638; position:absolute; width:75px; height:75px; top:0; right:0;"></div>';
-			var closeOverlay = '<a href="#" id="t4u_switch_close" style="font-family:tahoma, verdana, sans-serif; color:#fff; width:25px; height:25px; background:#000000; position:absolute; top:-15px; left:385px; border:2px solid #fff; border-radius:25px; z-index:2147483638; font-size:15px; text-align:center; text-decoration:none; line-height:24px; font-weight:bold;">X</a>';
-			var footer = '<div style="background:url(//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/footer_bg.png) repeat-x top left #f2f2f2; width:100%; height:65px; bottom:0px; text-align:center; padding:10px 0 5px 0; display:none;"><p>Visual Website Optimizer Variant Switcher</p>'+
-							'<a href="http://www.traffic4u.nl"><img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/logo_t4u.png" border="0" alt="Traffic4u" style="height:25px;"></a>&nbsp;&nbsp;&nbsp;&nbsp;'+
-							'<a href="http://www.visualwebsiteoptimizer.com"><img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/logo_vwo.png" border="0" alt="Visual Website Optimizer" style="height:25px;"></a>'+
-						'</div>';
-			
-			$(overlayBG).appendTo('body');
-			$(overlay).insertAfter('#t4u_vwo_switch_overlayBG');
-			$(closeOverlay).appendTo('#t4u_vwo_switch_overlay');
-			$(betaBadge).appendTo('#t4u_vwo_switch_overlay');
-			$(vwoBar).appendTo('#t4u_vwo_switch_overlay');
+			t4u_$(overlayBG).appendTo('body');
+			t4u_$(overlay).insertAfter('#t4u_vwo_switch_overlayBG').fadeIn(400);
+			/*Einde switch overlay toevoegen aan de pagina */
+			/* Switch header */
+			t4u_$('<div id="t4u_switch_head"><div id="t4u_switch_head_choose"></div><div id="t4u_switch_close"></div></div>').appendTo('#t4u_vwo_switch_overlay');
+			/* Einde switch header */
 
 			if (typeof _vis_opt_experiment_id != "undefined") {
 			// VWO test actief	
-
 			// check op meerdere tests
-				$('<select class="multipleTests"></select>').insertAfter('#t4u_vwo_bar').hide();
-				$(_vwo_exp_ids).each(function(index){
-					$('<option value="'+_vwo_exp_ids[index]+'" label="'+index+'">test ID: '+_vwo_exp_ids[index]+'</option>').appendTo('.multipleTests');
+				t4u_$('<select class="multipleTests"></select>').appendTo('#t4u_switch_head_choose').hide();
+				t4u_$(_vwo_exp_ids).each(function(index){
+					t4u_$('<option value="'+_vwo_exp_ids[index]+'" label="'+index+'">Test # '+_vwo_exp_ids[index]+'</option>').appendTo('.multipleTests');
 					
 					for(a in _vwo_exp[_vwo_exp_ids[index]].comb_n) {
 							vNaam =  _vwo_exp[_vwo_exp_ids[index]].comb_n[a];
@@ -60,24 +181,23 @@ if(typeof jQuery == 'undefined'){
 				
 				var meestRecenteTest = Math.max.apply(null, _vwo_exp_ids);
 				var testID = meestRecenteTest;
-				$('.multipleTests option').each(function(){
-					if(testID == $(this).val()){
-						$(this).attr('selected', 'selected');
+				t4u_$('.multipleTests option').each(function(){
+					if(testID == t4u_$(this).val()){
+						t4u_$(this).attr('selected', 'selected');
 					}
 				});
 
 			/* CHECK OP EXCLUDE COOKIE */
 				if(unescape(readCookie("_vis_opt_exp_" + testID + "_exclude")) == true){
 					// Exclude cookie gevonden voor de meest recente test
-					$('<div id="t4u_formDiv" class="cookieCheck" style="padding:20px; width:100%; font-size:11px; font-family:tahoma, verdana, sans-serif; color:#333; line-height:20px;">'+
+					t4u_$('<div id="t4u_formDiv" class="cookieCheck">'+
 						'<img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/vwo_ico_exclude.png" border="0" style="width:25px;">&nbsp;&nbsp;<strong style="font-size:16px;">Exclude cookie gevonden voor test #'+testID+'</strong><br />'+
 						'<a href="#" class="delExclude">Variant activeren (en exclude cookie verwijderen)</a>'+
-					'</div>').slideDown(350).insertAfter('#t4u_vwo_switch_overlay #t4u_vwo_bar');
+					'</div>').insertAfter('#t4u_switch_head');
 					
-					$('.delExclude').click(function(){
+					t4u_$('.delExclude').click(function(){
 						
-						$('.cookieCheck').hide();
-						$('#t4u_vwo_switch_overlay').css('position', 'absolute');
+						t4u_$('.cookieCheck').remove();
 						
 						var activeVariant = unescape(readCookie("_vis_opt_exp_" + testID + "_combi"));
 
@@ -86,28 +206,32 @@ if(typeof jQuery == 'undefined'){
 						}else if(_vwo_exp[testID].type == "VISUAL"){
 							var testType = "Multivariate test";
 						}
-						$('<div id="t4u_formDiv" style="padding:20px; width:100%; font-size:11px; font-family:tahoma, verdana, sans-serif; color:#333; line-height:20px;">'+
-							'<img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/vwo_ico.png" border="0" style="width:25px;">&nbsp;<strong style="font-size:16px;">VWO test ID: '+testID+'</strong><br />'+
-							testType+' | '+_vwo_exp[testID].url_pattern+' | '+_vwo_exp[testID].pc_traffic+'%<br /><br />'+
-							'<form id="vwo_switch_form">'+
-								'<div id="submit_var_change" style="width:110px; padding:5px 10px; height:20px; border-radius:2px; background: #00be36; background: -moz-linear-gradient(top,  #00be36 0%, #029a2d 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00be36), color-stop(100%,#029a2d)); background: -webkit-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -o-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -ms-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: linear-gradient(to bottom,  #00be36 0%,#029a2d 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#00be36\', endColorstr=\'#029a2d\',GradientType=0 );  vertical-align:middle; text-align:center; color:#fff; margin-top:15px; cursor:pointer;">Toon Variant</div><small>(verwijder exclude cookie)</small>'+
-							'</form>'+
-						'</div>').slideDown(350).insertAfter('#t4u_vwo_switch_overlay #t4u_vwo_bar');
+						t4u_$('<strong style="font-size:16px;">Test # '+testID+'</strong>').appendTo('.t4u_switch_head_choose');
+						t4u_$('<div id="t4u_formDiv"><div id="testDetails">'+
+								'Test type: <strong>'+testType+'</strong><br />'+
+								'Test page patern: <strong>'+_vwo_exp[testID].url_pattern+'</strong><br />'+
+								'Percentage traffic: <strong>'+_vwo_exp[testID].pc_traffic+'%</strong>'+
+							'</div>'+
+							'<div id="testVariants">'+
+								'<form id="vwo_switch_form">'+
+									'<div id="submit_var_change_wrap" style="float:left; width:100%;"><div id="submit_var_change">Toon Variant</div><small>(verwijder exclude cookie)</small></div>'+
+								'</form>'+
+							'</div>'+
+						'</div>').insertAfter('#t4u_switch_head');
 
 						for (a in _vwo_exp[_vwo_exp_ids[testN]].comb_n) {
 							variantNaam =  _vwo_exp[_vwo_exp_ids[testN]].comb_n[a];
-							$('<div style="height:20px; padding:5px; width:250px;" id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div>').insertBefore('#submit_var_change');
-							$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
+							variantTraffic =  _vwo_exp[_vwo_exp_ids[testN]].combs[a]*100;
+							variantTraffic = Math.round(variantTraffic);
+							t4u_$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
+							t4u_$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
 						};
 						
-						$('#vwo_switch_form div#variant_div').hover(function(){
-							$(this).css({'background':'url("//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/hover_bg.png") top right repeat-y #fff9c6', 'cursor':'pointer'});
-						}, function(){
-							$(this).css({'background':'white', 'cursor':'pointer'});
-						});
+						h = (t4u_$('#submit_var_change_wrap').height()+(30*a));
+						t4u_$('#testVariants').css('height', h+'px')
 							
-						$('#submit_var_change').click(function(){
-							var cookieVal = $('#vwo_switch_form input:checked').val();
+						t4u_$('#submit_var_change').click(function(){
+							var cookieVal = t4u_$('#vwo_switch_form input:checked').val();
 							 _vis_opt_createCookie('_vis_opt_exp_'+ testID +'_exclude', '1', -1);
 							 _vis_opt_createCookie('_vis_opt_exp_'+ testID +'_combi', cookieVal, 30);
 							 location.reload();
@@ -115,7 +239,7 @@ if(typeof jQuery == 'undefined'){
 					
 					});
 					
-				} else {
+				}else{
 					// Geen exclude cookie gevonden voor de meest recente test, gewoon doorgaan
 					var activeVariant = unescape(readCookie("_vis_opt_exp_" + testID + "_combi"));
 
@@ -124,152 +248,176 @@ if(typeof jQuery == 'undefined'){
 					}else if(_vwo_exp[testID].type == "VISUAL"){
 						var testType = "Multivariate test";
 					}
-				
-					$('<div id="t4u_formDiv" class="form_ID'+testID+'" style="padding:20px; width:100%; font-size:11px; font-family:tahoma, verdana, sans-serif; color:#333; line-height:20px;">'+
-						'<img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/vwo_ico.png" border="0" style="width:25px;">&nbsp;<strong style="font-size:16px;" class="testTitle"></strong><br />'+
-						testType+' | '+_vwo_exp[testID].url_pattern+' | '+_vwo_exp[testID].pc_traffic+'%<br /><br />'+
-						'<form id="vwo_switch_form">'+
-							'<div id="submit_var_change" style="width:110px; padding:5px 10px; height:20px; border-radius:2px; background: #00be36; background: -moz-linear-gradient(top,  #00be36 0%, #029a2d 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00be36), color-stop(100%,#029a2d)); background: -webkit-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -o-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -ms-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: linear-gradient(to bottom,  #00be36 0%,#029a2d 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#00be36\', endColorstr=\'#029a2d\',GradientType=0 );  vertical-align:middle; text-align:center; color:#fff; margin-top:15px; cursor:pointer;">Toon pagina</div>'+
-						'</form>'+
-					'</div>').slideDown(250, function(){
-						$(footer).insertAfter('#t4u_formDiv').fadeIn(0, function(){
-							// position van overlay div aanpassen a.h.v. browserhoogte
-							if($('#t4u_vwo_switch_overlay').height() >= ($(window).height()*0.75)){
-								$('#t4u_vwo_switch_overlay').css('position', 'absolute');
-							}
-						});
-					}).appendTo('#t4u_vwo_switch_overlay');
+					t4u_$('<img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/vwo_ico.png" border="0" style="width:15px;">&nbsp;<strong style="font-size:16px;" class="testTitle"></strong><br />').appendTo('#t4u_switch_head_choose');
+					t4u_$('<div id="t4u_formDiv" class="form_ID'+testID+'"><div id="testDetails">'+
+							'Test type: <strong>'+testType+'</strong><br />'+
+							'Test page patern: <strong>'+_vwo_exp[testID].url_pattern+'</strong><br />'+
+							'Percentage traffic: <strong>'+_vwo_exp[testID].pc_traffic+'%</strong>'+
+						'</div>'+
+						'<div id="testVariants">'+
+							'<form id="vwo_switch_form">'+
+								'<div id="submit_var_change_wrap" style="float:left; width:100%;"><div id="submit_var_change">Toon pagina</div></div>'+
+							'</form>'+
+						'</div>'+
+					'</div>').appendTo('#t4u_vwo_switch_overlay');
 
 					for (a in _vwo_exp[_vwo_exp_ids[testN]].comb_n) {
 						variantNaam =  _vwo_exp[_vwo_exp_ids[testN]].comb_n[a];
-						$('<div style="height:20px; padding:5px; width:250px; border:1px solid #ffffff; cursor:pointer;" id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'" style="vertical-align:middle; margin-right:5px;"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="cursor:pointer; display:inline;">'+variantNaam.replace('---',' - ')+'</label></div>').insertBefore('#submit_var_change');
-						$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
+						variantTraffic =  _vwo_exp[_vwo_exp_ids[testN]].combs[a]*100;
+						variantTraffic = Math.round(variantTraffic);
+						t4u_$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[testN]+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" value="'+a+'" style="vertical-align:middle; margin-right:5px;"> <label for="'+_vwo_exp_ids[testN]+'_'+variantNaam+'" id="'+_vwo_exp_ids[testN]+'_'+variantNaam+'_label" style="cursor:pointer; display:inline;">'+variantNaam.replace('---',' ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
+						t4u_$('#'+_vwo_exp_ids[testN]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
 					};
-
+					
+					h = (t4u_$('#submit_var_change_wrap').height()+(30*a));
+					t4u_$('#testVariants').css('height', h+'px')
+					
 					// Meerdere live testen switchen
 					if(testN > 0){
-						$('.multipleTests').show().appendTo('.testTitle');
-						$('.multipleTests').css({
-							'font-size':'16px',
+						t4u_$('.multipleTests').show().appendTo('.testTitle');
+						t4u_$('.multipleTests').css({
+							'font-size':'14px',
 							'font-weight':'bold',
-							'font-family':'Tahoma, sans-serif',
-							'color':'#333333',							
+							'color':'#4C668C',
+							'border':'1px solid #4C668C',
 						});
 						
-						$('.multipleTests').change(function(){
-							var selectedTest = $(this).val();
-							var selectedTestIndex = $('option[value='+selectedTest+']').attr('label');
-							
+						t4u_$('.multipleTests').change(function(){
+							var selectedTest = t4u_$(this).val();
+							var selectedTestIndex = t4u_$('option[value='+selectedTest+']').attr('label');
+						
 							function changeLiveVariant(){
-								var liveForm = '.'+$('#t4u_formDiv').attr('class');
+								var liveForm = '.'+t4u_$('#t4u_formDiv').attr('class');
 								var activeVariant = unescape(readCookie("_vis_opt_exp_" + selectedTest + "_combi"));
+								if (_vwo_exp[selectedTest].type == "VISUAL_AB"){
+									var testType = "A/B Test";
+								}else if(_vwo_exp[selectedTest].type == "VISUAL"){
+									var testType = "Multivariate test";
+								}
 								
-								$(liveForm).fadeOut(250, function(){
-									$('<div id="t4u_formDiv" class="form_ID'+selectedTest+'" style="padding:20px; width:100%; font-size:11px; font-family:tahoma, verdana, sans-serif; color:#333; line-height:20px;">'+
-										'<img src="//useruploads.visualwebsiteoptimizer.com/useruploads/917/images/vwo_ico.png" border="0" style="width:25px;">&nbsp;<strong style="font-size:16px;" class="testTitle"></strong><br />'+
-										testType+' | '+_vwo_exp[selectedTest].url_pattern+' | '+_vwo_exp[selectedTest].pc_traffic+'%<br /><br />'+
-										'<form id="vwo_switch_form">'+
-											'<div id="submit_var_change" style="width:110px; padding:5px 10px; height:20px; border-radius:2px; background: #00be36; background: -moz-linear-gradient(top,  #00be36 0%, #029a2d 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00be36), color-stop(100%,#029a2d)); background: -webkit-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -o-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: -ms-linear-gradient(top,  #00be36 0%,#029a2d 100%); background: linear-gradient(to bottom,  #00be36 0%,#029a2d 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#00be36\', endColorstr=\'#029a2d\',GradientType=0 );  vertical-align:middle; text-align:center; color:#fff; margin-top:15px; cursor:pointer;">Toon pagina</div>'+
-										'</form>'+
-									'</div>').hide().insertAfter('#t4u_vwo_bar').fadeIn(500);
-
-									for (a in _vwo_exp[_vwo_exp_ids[selectedTestIndex]].comb_n) {
-										variantNaam =  _vwo_exp[_vwo_exp_ids[selectedTestIndex]].comb_n[a];
-										$('<div style="height:20px; padding:5px; width:250px;" id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[selectedTestIndex]+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'_label" style="display:inline;">'+variantNaam.replace('---',' - ')+'</label></div>').insertBefore('#submit_var_change');
-										$('#'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'[value="'+activeVariant+'"]').attr('checked', 'checked');
+								t4u_$(liveForm).fadeOut(250, function(){
+									t4u_$('<div id="t4u_formDiv" class="form_ID'+selectedTest+'">'+
+										'<div id="testDetails">'+
+											'Test type: <strong>'+testType+'</strong><br />'+
+											'Test page patern: <strong>'+_vwo_exp[selectedTest].url_pattern+'</strong><br />'+
+											'Percentage traffic: <strong>'+_vwo_exp[selectedTest].pc_traffic+'%</strong>'+
+										'</div>'+
+										'<div id="testVariants">'+
+											'<form id="vwo_switch_form">'+
+												'<div id="submit_var_change_wrap" style="float:left; width:100%;"><div id="submit_var_change">Toon pagina</div></div>'+
+											'</form>'+
+										'</div>'+
+									'</div>').hide().insertAfter('#t4u_switch_head').fadeIn(500);
+																	
+									for (a in _vwo_exp[selectedTest].comb_n) {
+										variantNaam =  escape(_vwo_exp[selectedTest].comb_n[a]);
+										variantTraffic =  _vwo_exp[selectedTest].combs[a]*100;
+										variantTraffic = Math.round(variantTraffic);
+										t4u_$('<div id="variant_div"><input type="radio" name="vwo_exp_'+_vwo_exp_ids[selectedTestIndex]+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" value="'+a+'"> <label for="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'" id="'+_vwo_exp_ids[selectedTestIndex]+'_'+variantNaam+'_label" style="display:inline;">'+unescape(variantNaam).replace('---',' ')+'</label></div><div id="traffic_percentage">'+variantTraffic+'%</div>').insertBefore('#submit_var_change_wrap');
 									};
+									
+									h = (t4u_$('#submit_var_change_wrap').height()+(30*a));
+									t4u_$('#testVariants').css('height', h+'px')
 
-									$('.multipleTests').show().appendTo('.testTitle');
-									$('.multipleTests').css({
-										'font-size':'16px',
+									t4u_$('.multipleTests').show().appendTo('.testTitle');
+									t4u_$('.multipleTests').css({
+										'font-size':'14px',
 										'font-weight':'bold',
-										'font-family':'Tahoma, sans-serif',
-										'color':'#333333',							
+										'color':'#4C668C',
+										'border':'1px solid #4C668C',						
 									});
 									
-									//todo: Hovers stylen, bij definitieve variant in functie stoppen
-									$('#vwo_switch_form div#variant_div').hover(function(){
-										$(this).css({'background':'#f2f4ff'});
+									t4u_$('#vwo_switch_form div#variant_div').hover(function(){
+										t4u_$(this).css({'background':'#f2f4ff'});
+										t4u_$(this).next().addClass('hover');
 									}, function(){
-										$(this).css({'background':'#ffffff'});
+										t4u_$(this).css({'background':'#ffffff'});
+										t4u_$(this).next().removeClass('hover');
 									});
 									
-									$('#vwo_switch_form input:checked').parent().css('border','1px solid #f2f4ff');
+									t4u_$('#vwo_switch_form input[value="'+activeVariant+'"]').attr('checked', 'checked');
 									
-									$('#vwo_switch_form div#variant_div input').change(function(){
-										$('#vwo_switch_form div#variant_div').css('border', '1px solid #ffffff');
-										$(this).parent().animate({
+									t4u_$('#vwo_switch_form #variant_div').click(function(){
+										t4u_$('input', this).attr('checked', 'checked');
+									});
+									
+									t4u_$('#vwo_switch_form div#variant_div input').change(function(){
+										t4u_$('#vwo_switch_form div#variant_div').css('background', '#ffffff');
+										t4u_$('#submit_var_change').html('Toon '+t4u_$(this).next().html());
+										t4u_$(this).parent().animate({
 											backgroundColor: "#ffffff"
 										}, 0, function(){
-										$(this).animate({
+										t4u_$(this).animate({
 											backgroundColor: "#f2f4ff" 
-										}, 350)}).css('border','1px solid #f2f4ff');
+										}, 350)}).css('background','#f2f4ff');
 									});
-									// /todo.
 									
-									$('#submit_var_change').click(function(){
-										var cookieVal = $('#vwo_switch_form input:checked').val();
+									t4u_$('#submit_var_change').click(function(){
+										var cookieVal = t4u_$('#vwo_switch_form input:checked').val();
 										 _vis_opt_createCookie('_vis_opt_exp_'+ selectedTest +'_combi', cookieVal, 30);
 										 location.reload();
 									});			
 									
-									$(this).remove();
+									t4u_$(this).remove();
 								});
 							}
 							
-							$('.multipleTests').change(changeLiveVariant());
+							t4u_$('.multipleTests').change(changeLiveVariant());
 							
 						});
-					}else{
-						$('.testTitle').text('VWO test ID: '+testID);
-					}
+					}else{ t4u_$('.testTitle').text('Test # '+testID); }
 
 					// Geen meerdere testen, normale switcher
-					$('#vwo_switch_form div#variant_div').hover(function(){
-						$(this).css({'background':'#f2f4ff'});
+					t4u_$('#vwo_switch_form div#variant_div').hover(function(){
+						t4u_$(this).css({'background':'#f2f4ff'});
+						t4u_$(this).next().addClass('hover');
 					}, function(){
-						$(this).css({'background':'#ffffff'});
+						t4u_$(this).css({'background':'#ffffff'});
+						t4u_$(this).next().removeClass('hover');
 					});
 					
-					$('#vwo_switch_form input:checked').parent().css('border','1px solid #f2f4ff');
+					t4u_$('#vwo_switch_form input[value="'+activeVariant+'"]').attr('checked', 'checked');
 					
-					$('#vwo_switch_form div#variant_div input').change(function(){
-						$('#vwo_switch_form div#variant_div').css('border', '1px solid #ffffff');
-						$(this).parent().animate({
+					t4u_$('#vwo_switch_form #variant_div').click(function(){
+						t4u_$('input', this).attr('checked', 'checked');
+					});
+					
+					t4u_$('#vwo_switch_form div#variant_div input').change(function(){
+						t4u_$('#vwo_switch_form div#variant_div').css('background', '#ffffff');
+						t4u_$('#submit_var_change').html('Toon '+t4u_$(this).next().html());
+						t4u_$(this).parent().animate({
 							backgroundColor: "#ffffff"
 						}, 0, function(){
-						$(this).animate({
+						t4u_$(this).animate({
 							backgroundColor: "#f2f4ff" 
-						}, 350)}).css('border','1px solid #f2f4ff');
+						}, 350)}).css('background','#f2f4ff');
 					});
 						
-					$('#submit_var_change').click(function(){
-						var cookieVal = $('#vwo_switch_form input:checked').val();
+					t4u_$('#submit_var_change').click(function(){
+						var cookieVal = t4u_$('#vwo_switch_form input:checked').val();
 						 _vis_opt_createCookie('_vis_opt_exp_'+ testID +'_combi', cookieVal, 30);
 						 location.reload();
 					});			
 				}
-				
-			} else {
-			// Geen VWO test actief
-				$('<div id="t4u_formDiv" style="padding:20px; width:100%; height:100%; font-size:11px; font-family:tahoma, verdana, sans-serif; color:#333;">'+
-					'<strong style="font-size:16px;">Geen test actief</strong><br /> op '+location.href+'<br /><br />'+
-					'<a href="#" id="t4u_switch_close" style="color:#333; font-size:12px;">Sluit de switcher</a>'+
-				'</div>').slideDown(350).appendTo('#t4u_vwo_switch_overlay');
 			
-				$(footer).insertAfter('#t4u_formDiv').fadeIn(350, function(){
-					// position van overlay div aanpassen a.h.v. browserhoogte
-					if($('#t4u_vwo_switch_overlay').height() >= ($(window).height()*0.75)){
-						$('#t4u_vwo_switch_overlay').css('position', 'absolute');
-					}
-				});
+			}else{
+			// Geen VWO test actief
+				t4u_$('#t4u_vwo_switch_overlay').css('min-height','210px');
+				t4u_$('<div id="t4u_formDiv"><div id="testVariants">'+
+					'<p style="padding:10px; text-align:center;">'+
+						'<strong style="font-size:16px;">Geen test actief</strong><br />'+location.href+'<br /><br />'+
+					'</p>'+
+				'</div></div>').insertAfter('#t4u_switch_head');
 			}
 			
-			$('#t4u_vwo_switch_overlayBG, #t4u_switch_close').click(function(){
-				$('#t4u_vwo_switch_overlayBG, #t4u_vwo_switch_overlay').fadeOut(350, function(){
-					$('#t4u_vwo_switch_overlayBG, #t4u_vwo_switch_overlay').remove();
+			/* Switcher sluiten */
+			t4u_$('#t4u_vwo_switch_overlayBG, #t4u_switch_close').click(function(){
+				t4u_$('#t4u_vwo_switch_overlayBG, #t4u_vwo_switch_overlay').fadeOut(350, function(){
+					t4u_$('#t4u_vwo_switch_overlayBG, #t4u_vwo_switch_overlay').remove();
+					t4u_$('head #switch_style').remove();
 				});
 			});
+			/* Einde switcher sluiten*/
 		});
 	}
 }
